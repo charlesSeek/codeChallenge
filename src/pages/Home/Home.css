@@ -1,0 +1,11 @@
+.home {
+  margin-top: 160px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.primary-btn {
+  margin-top: 80px;
+}

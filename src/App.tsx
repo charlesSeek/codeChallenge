@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Store from './context';
+import reducer from './reducer';
+import Home from './pages/Home/Home';
+import QuestionsContainer from './pages/QuestionFormsContainer/QuestionFormsContainer';
+import Results from './pages/Results/Results';
+import { State } from './context';
 
-function App() {
+export default function App() {
+  const initialState: State = {
+    questions: [],
+    count: 0,
+    answer: {},
+  }
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Store.Provider value={{ state, dispatch }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/questions" element={<QuestionsContainer />} />
+          <Route path="/results" element={<Results />} />
+        </Routes>
+      </Router>
+    </Store.Provider>
   );
 }
-
-export default App;
